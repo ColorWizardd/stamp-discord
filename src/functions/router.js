@@ -2,7 +2,7 @@ import { app } from '@azure/functions';
 import { InteractionType, InteractionResponseType } from 'slash-create';
 import nacl from 'tweetnacl';
 
-app.http("interactions", {
+app.http("router", {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
@@ -42,6 +42,10 @@ app.http("interactions", {
                     type : InteractionResponseType.PONG
                 }
             };
+        }
+
+        if(bodJson.type == InteractionType.APPLICATION_COMMAND){
+            
         }
     }
 });

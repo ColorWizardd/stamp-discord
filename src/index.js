@@ -1,5 +1,5 @@
 import { app } from '@azure/functions';
-import { SlashCreator, AzureFunctionV4Server, InteractionType, InteractionResponseType } from 'slash-create';
+import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
 import path from 'path';
 
 const creator = new SlashCreator({
@@ -11,3 +11,4 @@ creator.withServer(new AzureFunctionV4Server(app));
 await creator.registerCommandsIn(path.join(__dirname, "commands"));
 await creator.syncCommands();
 
+export default creator;
