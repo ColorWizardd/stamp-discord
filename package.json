@@ -10,5 +10,5 @@
     "@azure/functions": "^4.7.2",
     "slash-create": "^6.6.1"
   },
-  "main": "src/{functions/*.mjs}"
+  "main": "index.mjs, src/{functions/*.mjs}"
 }
