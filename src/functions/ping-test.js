@@ -1,20 +1,47 @@
 import { app } from '@azure/functions';
+import { InteractionType, InteractionResponseType } from 'slash-create';
+import nacl from 'tweetnacl';
 
-app.http('ping-test', {
+app.http("interactions", {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
+        const req = await JSON.parse(request);
 
-        const type = request.json['type'];
-        if(type == 1){
-            return JSON.stringify({
-                status : 200,
-                type : 1
-            });
-        }
-        return JSON.stringify({
-            status : 400
-        });
+        const sig = req["X-Signature-Ed25519"];
+        const tStamp = req["X-Signature-Timestamp"];
+        const bod = req["rawBody"];
+
+        const isVerified = nacl.sign.detached.verify(
+            Buffer.from(tStamp + bod),
+            Buffer.from(sig, "hex"),
+            Buffer.from(process.env.PUBLIC_KEY, "hex")
+        );
+
+        if(!isVerified){
+            context.error("Invalid request signature.");
+            return {
+                status: 401,
+                headers: {
+                    "User-Agent": "DiscordBot (https://stamp-discord.azurewebsites.net/api/, 1.0.0)",
+                    "Content-Type": 'application/json'
+                },
+                body: "invalid request signature"
+            };
         }
 
+        if(req.status == InteractionType.PING){
+            context.log("Valid PING interaction. Returning PONG...");
+            return {
+                status: 200,
+                headers: {
+                    "User-Agent": "DiscordBot (https://stamp-discord.azurewebsites.net/api/, 1.0.0)",
+                    "Content-Type": 'application/json'
+                },
+                jsonBody: {
+                    type : InteractionResponseType.PONG
+                }
+            };
+        }
+    }
 });
