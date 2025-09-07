@@ -1,0 +1,26 @@
+{
+  "name": "stamp-discord",
+  "version": "1.0.0",
+  "description": "Discord utility for generating UNIX timestamps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ColorWizardd/stamp-discord.git"
+  },
+  "keywords": [
+    "discord",
+    "timestamp"
+  ],
+  "author": "ColorWizardd",
+  "license": "SEE LICENSE IN README.md",
+  "bugs": {
+    "url": "https://github.com/ColorWizardd/stamp-discord/issues"
+  },
+  "homepage": "https://github.com/ColorWizardd/stamp-discord#readme",
+  "dependencies": {
+    "discord.js": "^14.22.1"
+  }
+}
