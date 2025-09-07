@@ -1,7 +1,7 @@
 const { app } = require('@azure/functions');
 
 app.http('ping-test', {
-    methods: ['POST'],
+    methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
         context.log(`Http function processed request for url "${request.url}"`);
