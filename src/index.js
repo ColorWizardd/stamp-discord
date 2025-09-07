@@ -1,17 +1,16 @@
 import { app } from '@azure/functions';
-import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
+import { SlashCreator, AzureFunctionV4Server, InteractionType, InteractionResponseType } from 'slash-create';
 import path from 'path';
 
-app.http("index", {
+app.http("interactions", {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
         const req = JSON.parse(request);
-        if(req.status == "1"){
-            return JSON.stringify({
-                status: "200",
-                type: "1"
-            });
+        if(req.status == InteractionType.PING){
+            return {
+                type: InteractionResponseType.PONG
+            };
         }
         const creator = new SlashCreator({
             applicationID : process.env.APPLICATION_ID,
