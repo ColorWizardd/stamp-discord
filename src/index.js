@@ -25,7 +25,7 @@ app.http("interactions", {
                 status: 401,
                 headers: {
                     "User-Agent": "DiscordBot (https://stamp-discord.azurewebsites.net/api/, 1.0.0)",
-                    "Content-Type": 'Application/JSON'
+                    "Content-Type": 'application/json'
                 },
                 body: "invalid request signature"
             };
@@ -37,7 +37,7 @@ app.http("interactions", {
                 status: 200,
                 headers: {
                     "User-Agent": "DiscordBot (https://stamp-discord.azurewebsites.net/api/, 1.0.0)",
-                    "Content-Type": 'Application/JSON'
+                    "Content-Type": 'application/json'
                 },
                 jsonBody: {
                     type : InteractionResponseType.PONG
