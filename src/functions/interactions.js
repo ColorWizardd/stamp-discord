@@ -28,7 +28,9 @@ app.http("interactions", {
             };
         }
 
-        if(req.status == InteractionType.PING){
+        const bodJson = JSON.parse(bod);
+
+        if(bodJson.type == InteractionType.PING){
             context.log("Valid PING interaction. Returning PONG...");
             return {
                 status: 200,
