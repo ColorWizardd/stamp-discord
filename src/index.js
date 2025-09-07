@@ -28,6 +28,7 @@ app.http("interactions", {
 
         if(req.status == InteractionType.PING){
             return {
+                status: 200,
                 type: InteractionResponseType.PONG
             };
         }
