@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@azure/functions": "^4.7.2",
+    "applicationinsights": "^3.9.0",
     "slash-create": "^6.6.1",
     "tweetnacl": "^1.0.3"
   },
