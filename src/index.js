@@ -20,16 +20,20 @@ app.http("interactions", {
         );
 
         if(!isVerified){
+            context.error("Invalid request signature.");
             return {
                 status: 401,
                 body: "invalid request signature"
-            }
+            };
         }
 
         if(req.status == InteractionType.PING){
+            context.log("Valid PING interaction. Returning PONG...");
             return {
                 status: 200,
-                type: InteractionResponseType.PONG
+                jsonBody: {
+                    type: InteractionResponseType.PONG
+                }
             };
         }
         const creator = new SlashCreator({
