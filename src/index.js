@@ -7,7 +7,7 @@ app.http("interactions", {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
-        const req = JSON.parse(request);
+        const req = await JSON.parse(request);
 
         const sig = req["X-Signature-Ed25519"];
         const tStamp = req["X-Signature-Timestamp"];
@@ -23,6 +23,10 @@ app.http("interactions", {
             context.error("Invalid request signature.");
             return {
                 status: 401,
+                headers: {
+                    "User-Agent": "DiscordBot (https://stamp-discord.azurewebsites.net/api/, 1.0.0)",
+                    "Content-Type": 'Application/JSON'
+                },
                 body: "invalid request signature"
             };
         }
@@ -31,8 +35,12 @@ app.http("interactions", {
             context.log("Valid PING interaction. Returning PONG...");
             return {
                 status: 200,
+                headers: {
+                    "User-Agent": "DiscordBot (https://stamp-discord.azurewebsites.net/api/, 1.0.0)",
+                    "Content-Type": 'Application/JSON'
+                },
                 jsonBody: {
-                    type: InteractionResponseType.PONG
+                    type : InteractionResponseType.PONG
                 }
             };
         }
