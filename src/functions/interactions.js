@@ -6,11 +6,9 @@ app.http("interactions", {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
-        const req = await JSON.parse(request);
-
-        const sig = req["X-Signature-Ed25519"];
-        const tStamp = req["X-Signature-Timestamp"];
-        const bod = req["rawBody"];
+        const sig = request.query.get("X-Signature-Ed25519");
+        const tStamp = request.query.get("X-Signature-Timestamp");
+        const bod = request.query.get("rawBody");
 
         const isVerified = nacl.sign.detached.verify(
             Buffer.from(tStamp + bod),
