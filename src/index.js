@@ -1,5 +1,5 @@
-const { app } = require('@azure/functions');
-const { SlashCreator, AzureFunctionV4Server } = require('slash-create');
+import { app } from ('@azure/functions');
+import { SlashCreator, AzureFunctionV4Server } from ('slash-create');
 const env = process.env;
 
 const creator = new SlashCreator({
