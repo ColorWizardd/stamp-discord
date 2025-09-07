@@ -1,12 +1,31 @@
 import { app } from '@azure/functions';
 import { SlashCreator, AzureFunctionV4Server, InteractionType, InteractionResponseType } from 'slash-create';
 import path from 'path';
+import nacl from 'tweetnacl';
 
 app.http("interactions", {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
         const req = JSON.parse(request);
+
+        const sig = req["X-Signature-Ed25519"];
+        const tStamp = req["X-Signature-timeStamp"];
+        const bod = req["rawBody"];
+
+        const isVerified = nacl.sign.detached.verify(
+            Buffer.from(tStamp + bod),
+            Buffer.from(sig, "hex"),
+            Buffer.from(process.env.PUBLIC_KEY, "hex")
+        );
+
+        if(!isVerified){
+            return {
+                status: 401,
+                body: "invalid request signature"
+            }
+        }
+
         if(req.status == InteractionType.PING){
             return {
                 type: InteractionResponseType.PONG
