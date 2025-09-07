@@ -10,5 +10,3 @@ const creator = new SlashCreator({
 creator.withServer(new AzureFunctionV4Server(app));
 await creator.registerCommandsIn(path.join(__dirname, "commands"));
 await creator.syncCommands();
-
-export default creator;
