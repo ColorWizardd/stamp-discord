@@ -10,7 +10,7 @@ app.http("interactions", {
         const req = JSON.parse(request);
 
         const sig = req["X-Signature-Ed25519"];
-        const tStamp = req["X-Signature-timeStamp"];
+        const tStamp = req["X-Signature-Timestamp"];
         const bod = req["rawBody"];
 
         const isVerified = nacl.sign.detached.verify(
