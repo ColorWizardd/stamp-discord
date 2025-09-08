@@ -8,8 +8,6 @@ app.setup({
 });
 
 process.loadEnvFile("./.env")
-appInsights.setup(process.env.APPLCIATIONINSIGHTS_CONNECTION_STRING);
-
 
 const creator = new SlashCreator({
     applicationID : process.env.APPLICATION_ID,
