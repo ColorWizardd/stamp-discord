@@ -6,6 +6,10 @@ import { join } from 'node:path';
 process.loadEnvFile("./.env")
 appInsights.setup(process.env.APPINSIGHTS_CONNECTION_STRING);
 
+app.setup({
+    enableHttpStream: true
+});
+
 const creator = new SlashCreator({
     applicationID : process.env.APPLICATION_ID,
     publicKey : process.env.PUBLIC_KEY,

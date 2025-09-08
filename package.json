@@ -13,5 +13,5 @@
     "slash-create": "^6.6.1",
     "tweetnacl": "^1.0.3"
   },
-  "main": "src/functions/*.js"
+  "main": "src/{index.js,functions/*.js}"
 }
