@@ -3,12 +3,13 @@ import { app } from '@azure/functions';
 import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
 import { join } from 'node:path';
 
-process.loadEnvFile("./.env")
-appInsights.setup(process.env.APPINSIGHTS_CONNECTION_STRING);
-
 app.setup({
     enableHttpStream: true
 });
+
+process.loadEnvFile("./.env")
+appInsights.setup(process.env.APPINSIGHTS_CONNECTION_STRING);
+
 
 const creator = new SlashCreator({
     applicationID : process.env.APPLICATION_ID,
