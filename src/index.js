@@ -2,6 +2,7 @@ import * as appInsights from 'applicationinsights';
 import { app } from '@azure/functions';
 import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
 import { join } from 'node:path';
+import { PingCommand } from './commands/PingCommand'
 
 app.setup({
     enableHttpStream: true
@@ -15,5 +16,10 @@ const creator = new SlashCreator({
     token: process.env.BOT_TOKEN
 });
 creator.withServer(new AzureFunctionV4Server(app));
-await creator.registerCommandsIn(join(import.meta.dirname, "commands"));
+creator.registerCommands(
+    [
+        PingCommand
+    ],
+    false
+);
 await creator.syncCommands();
