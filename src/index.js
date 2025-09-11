@@ -4,6 +4,8 @@ import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
 import { join } from 'node:path';
 import { PingCommand } from './commands/PingCommand'
 
+appInsights.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING).start();
+
 app.setup({
     enableHttpStream: true
 });
