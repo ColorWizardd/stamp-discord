@@ -1,6 +1,7 @@
 import * as appInsights from 'applicationinsights';
 import { app } from '@azure/functions';
 import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
+import { PingCommand } from '../src/commands/PingCommand.js';
 // export default app.http('index', {
 //     methods: ['POST'],
 //     authLevel: "anonymous",
@@ -26,5 +27,7 @@ import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
             token: process.env.BOT_TOKEN
         });
         creator.withServer(new AzureFunctionV4Server(app));
-        await creator.registerCommandsIn(require('path').join(import.meta.dirname, 'commands'));
+        creator.registerCommands([
+            PingCommand
+        ], false);
         await creator.syncCommands();
