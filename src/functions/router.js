@@ -2,7 +2,7 @@ import { app } from '@azure/functions';
 import { InteractionType, InteractionResponseType } from 'slash-create';
 import nacl from 'tweetnacl';
 
-app.http("router", {
+export default app.http("router", {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {

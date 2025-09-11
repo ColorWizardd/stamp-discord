@@ -1,7 +1,7 @@
 // DEBUG: RETURNS A SIMPLE PING FROM SERVER
 
 import { SlashCommand, ApplicationCommandPermissionType } from "slash-create";
-export default class ping extends SlashCommand{
+class PingCommand extends SlashCommand{
     constructor(creator){
         super(creator,  {
             name: 'ping',
@@ -15,3 +15,5 @@ export default class ping extends SlashCommand{
         return 'Pong!';
     }
 }
+
+export { PingCommand }
