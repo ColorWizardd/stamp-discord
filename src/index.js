@@ -18,8 +18,6 @@ import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
 //         return;
 //     }
 // } )
-
-export default async function () {
     process.loadEnvFile("./.env")
         appInsights.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING).start();
         const creator = new SlashCreator({
@@ -30,4 +28,3 @@ export default async function () {
         creator.withServer(new AzureFunctionV4Server(app));
         await creator.registerCommandsIn(require('path').join(__dirname, 'commands'));
         await creator.syncCommands();
-}
