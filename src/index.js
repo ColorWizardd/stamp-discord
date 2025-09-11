@@ -26,5 +26,5 @@ import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
             token: process.env.BOT_TOKEN
         });
         creator.withServer(new AzureFunctionV4Server(app));
-        await creator.registerCommandsIn(require('path').join(__dirname, 'commands'));
+        await creator.registerCommandsIn(require('path').join(import.meta.dirname, 'commands'));
         await creator.syncCommands();
