@@ -2,6 +2,7 @@ import * as appInsights from 'applicationinsights';
 import { app } from '@azure/functions';
 import { SlashCreator, AzureFunctionV4Server } from 'slash-create';
 import { PingCommand } from '../src/commands/PingCommand.js';
+import { GenTimestampCommand } from '../src/commands/GenTimestampCommand.js';
 // export default app.http('index', {
 //     methods: ['POST'],
 //     authLevel: "anonymous",
@@ -24,10 +25,12 @@ import { PingCommand } from '../src/commands/PingCommand.js';
         const creator = new SlashCreator({
             applicationID : process.env.APPLICATION_ID,
             publicKey : process.env.PUBLIC_KEY,
-            token: process.env.BOT_TOKEN
+            token: process.env.BOT_TOKEN,
+            postCallbacks: true
         });
         creator.withServer(new AzureFunctionV4Server(app));
         creator.registerCommands([
-            PingCommand
+            PingCommand,
+            GenTimestampCommand
         ], false);
         await creator.syncCommands();
