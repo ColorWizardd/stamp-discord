@@ -1,2 +1,3 @@
 # stamp-discord
-A Discord bot for generating UNIX timestamps through slash commands.
+A serverless Discord utility for generating UNIX timestamps through slash commands.
+Hosted in Azure Functions.
