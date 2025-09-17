@@ -17,7 +17,7 @@ class GenTimestampCommand extends SlashCommand{
                 dateF[1] = dateF[0].padStart(2,"0");
                 let timeF = (mctx.values.time_input).split(":");
                 timeF[0] = timeF[0].padStart(2,"0");
-                let utcF = (mctx.values.utc_input).split(":");
+                let utcF = (mctx.values.utc_input);
                 if(dateF.length != 3 || timeF.length != 2 || dateF[2].length < 4  ){
                     await mctx.send({
                             content: "ERROR: Date/Time is not in a valid, readable format.",
@@ -38,9 +38,9 @@ class GenTimestampCommand extends SlashCommand{
                 }
                 else{
                     let mins = ":00";
-                    if(utcF.length > 1 && utcF[1] == 30){
-                        mins = ":30";
-                    }
+                    // if(utcF.length > 1 && utcF[1] == 30){
+                    //     mins = ":30";
+                    // }
                     cliOffset = Math.floor(cliOffset);
                     cliOffset = cliOffset < 0 ? ("-" + String(Math.abs(cliOffset)).padStart(2, "0")) + mins : 
                         ("+" + String(cliOffset).padStart(2, "0") + mins);
@@ -48,7 +48,7 @@ class GenTimestampCommand extends SlashCommand{
                 }
                 // console.log(`${dateF[2]}-${dateF[0]}-${dateF[1]}T${timeF[0]}:${timeF[1]}:00.000${cliOffset}`);
                 let dateFull = new Date(
-                    `${dateF[2]}-${dateF[0]}-${dateF[1]}T${timeF[0]}:${timeF[1]}:00.000${cliOffset}`
+                    `${dateF[2]}-${dateF[0]}-${dateF[1]}T${timeF[0]}:${timeF[1]}:00${cliOffset}`
                 );
                 // console.log(dateFull);
                 const styleF = mctx.values.style_input === "N" ? "" : mctx.values.style_input;
@@ -164,16 +164,51 @@ class GenTimestampCommand extends SlashCommand{
                             }
                         },
                         {
+                            ///TODO: Convert into string select
+                            ///      Server-side works in UTC, no real way to obtain time-zone from the client.
                             type: ComponentType.LABEL,
-                            label: "UTC Offset (Suggested by default)",
+                            label: "UTC Offset",
+                            // component: {
+                            //     type: ComponentType.TEXT_INPUT,
+                            //     custom_id: "utc_input",
+                            //     required: true,
+                            //     placeholder: (new Date().getTimezoneOffset() / -60),
+                            //     max_length: 5,
+                            //     min_length: 1,
+                            //     style: TextInputStyle.SHORT
+                            // }
                             component: {
-                                type: ComponentType.TEXT_INPUT,
+                                type: ComponentType.STRING_SELECT,
                                 custom_id: "utc_input",
                                 required: true,
-                                placeholder: (new Date().getTimezoneOffset() / -60),
-                                max_length: 5,
-                                min_length: 1,
-                                style: TextInputStyle.SHORT
+                                max_length: 1,
+                                options: [
+                                    {label: "UTC-12:00 (Intl. Date Line West)", value: "-12"},
+                                    {label: "UTC-11:00", value: "-11"},
+                                    {label: "UTC-10:00 (Hawaii)", value: "-10"},
+                                    {label: "UTC-09:00 (Alaska)", value: "-9"},
+                                    {label: "UTC-08:00 (US Pacific Time)", value: "-8"},
+                                    {label: "UTC-07:00 (US Mountain Time/PDT)", value: "-7"},
+                                    {label: "UTC-06:00 (US CST/MDT", value: "-6"},
+                                    {label: "UTC-05:00 (US EST/CDT)", value: "-5"},
+                                    {label: "UTC-04:00 (CA Atlantic Time/US EDT)", value: "-4"},
+                                    {label: "UTC-03:00 ()", value: "-3"},
+                                    {label: "UTC-02:00 ()", value: "-2"},
+                                    {label: "UTC-01:00 ()", value: "-1"},
+                                    {label: "UTC+00:00 ()", value: "0"},
+                                    {label: "UTC+01:00 ()", value: "1"},
+                                    {label: "UTC+02:00 ()", value: "2"},
+                                    {label: "UTC+03:00 ()", value: "3"},
+                                    {label: "UTC+04:00 ()", value: "4"},
+                                    {label: "UTC+05:00 ()", value: "5"},
+                                    {label: "UTC+06:00 ()", value: "6"},
+                                    {label: "UTC+07:00 ()", value: "7"},
+                                    {label: "UTC+08:00 ()", value: "8"},
+                                    {label: "UTC+09:00 ()", value: "9"},
+                                    {label: "UTC+10:00 ()", value: "10"},
+                                    {label: "UTC+11:00 ()", value: "11"},
+                                    {label: "UTC+12:00 ()", value: "12"},
+                                ]
                             }
                         },
                         {
