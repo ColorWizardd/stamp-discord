@@ -1,4 +1,4 @@
-import { app, HttpRequest, HttpResponse } from '@azure/functions';
+import { app } from '@azure/functions';
 
 app.timer('pulse', {
     schedule: '0,30 6-22 * * *',
