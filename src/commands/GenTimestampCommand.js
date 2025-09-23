@@ -14,7 +14,7 @@ class GenTimestampCommand extends SlashCommand{
             try{
                 let dateF = (mctx.values.date_input).split("/");
                 dateF[0] = dateF[0].padStart(2,"0");
-                dateF[1] = dateF[0].padStart(2,"0");
+                dateF[1] = dateF[1].padStart(2,"0");
                 let timeF = (mctx.values.time_input).split(":");
                 timeF[0] = timeF[0].padStart(2,"0");
                 let utcF = (mctx.values.utc_input);
